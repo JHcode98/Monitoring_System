@@ -3,6 +3,8 @@
 
 const STORAGE_KEY = 'dms_docs_v1';
 const DEMO_USER = { username: 'admin', password: 'password' };
+// Key used to persist authenticated user across refreshes
+const AUTH_KEY = 'dms_auth_v1';
 
 // Elements
 const loginSection = document.getElementById('login-section');
@@ -325,6 +327,7 @@ function signOut(){
   dashboard.classList.add('hidden');
   userInfo.classList.add('hidden');
   usernameDisplay.textContent = '';
+  try{ localStorage.removeItem(AUTH_KEY); }catch(e){}
 }
 
 // Events
@@ -333,6 +336,8 @@ loginForm.addEventListener('submit', e => {
   const u = document.getElementById('username').value.trim();
   const p = document.getElementById('password').value;
   if(signIn(u,p)){
+    // persist login so refresh doesn't return to the login form
+    try{ localStorage.setItem(AUTH_KEY, u); }catch(e){}
     showDashboard(u);
   } else {
     alert('Invalid credentials');
@@ -648,7 +653,17 @@ function datetimeLocalToMs(val){
 document.addEventListener('DOMContentLoaded', () => {
   // If you want auto-login during development, uncomment:
   // showDashboard(DEMO_USER.username);
-  loadDocs();
+  // If a user was previously signed in, restore their session and show dashboard
+  try{
+    const storedUser = localStorage.getItem(AUTH_KEY);
+    if(storedUser){
+      showDashboard(storedUser);
+    } else {
+      loadDocs();
+    }
+  }catch(e){
+    loadDocs();
+  }
   // start clock
   updateClock();
   setInterval(updateClock, 1000);
