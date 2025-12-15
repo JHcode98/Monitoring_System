@@ -86,7 +86,8 @@ footer{max-width:980px;margin:6px auto;padding:6px 16px;color:var(--muted)}
 .note-cancel-btn{background:#a63131;padding:4px 6px;margin-left:6px}
 
 /* Column widths for the documents table (Control, Title, Notes, Owner, Status, WINS, Created, Updated, Age, Actions) */
-#docs-table th:nth-child(1), #docs-table td:nth-child(1){width:120px;max-width:120px}
+
+#docs-table th:nth-child(1), #docs-table td:nth-child(1){width:200px;max-width:200px} 
 #docs-table th:nth-child(2), #docs-table td:nth-child(2){width:220px;max-width:220px}
 #docs-table th:nth-child(3), #docs-table td:nth-child(3){width:200px;max-width:200px}
 #docs-table th:nth-child(4), #docs-table td:nth-child(4){width:120px;max-width:120px}
