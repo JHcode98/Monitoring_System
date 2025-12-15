@@ -99,3 +99,6 @@ footer{max-width:980px;margin:6px auto;padding:6px 16px;color:var(--muted)}
 
 /* Ensure truncated cells wrap appropriately where needed */
 #docs-table td{overflow:hidden;text-overflow:ellipsis}
+
+
+
