@@ -788,8 +788,9 @@ function importFromCSVText(text){
     const winsStatus = (row[mapIndex['winsStatus']] || 'Pending for Approve').trim();
     const createdAtRaw = row[mapIndex['createdAt']];
     const updatedAtRaw = row[mapIndex['updatedAt']];
-    const createdAt = createdAtRaw ? Number(createdAtRaw) : Date.now();
-    const updatedAt = updatedAtRaw ? Number(updatedAtRaw) : Date.now();
+    const createdDate = new Date(createdAt);
+    const updatedDate = new Date(updatedAt);
+console.log(createdDate.toString());  
     const doc = { controlNumber, title, notes, owner, status, winsStatus, createdAt, updatedAt };
     parsed.push(doc);
     if(docs.find(d => d.controlNumber === controlNumber)) duplicates.push(controlNumber);
