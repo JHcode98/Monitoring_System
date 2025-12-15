@@ -680,47 +680,22 @@ function updateClock(){
 }
 
 // CSV export/import
-
-function formatDate(timestamp) {
-  if (!timestamp) return '';
-  const date = new Date(Number(timestamp));
-  // Example: "2025-12-16 00:40"
-  return date.toLocaleString('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
+function csvEscape(field){
+  if(field == null) return '""';
+  const s = String(field);
+  if(/[,\"\n]/.test(s)){
+    return '"' + s.replace(/"/g, '""') + '"';
+  }
+  return '"' + s + '"';
 }
 
-function exportToCSV() {
-  const headers = [
-    'controlNumber',
-    'title',
-    'notes',
-    'owner',
-    'status',
-    'winsStatus',
-    'createdAt',
-    'updatedAt'
-  ];
+function exportToCSV(){
+  const headers = ['controlNumber','title','notes','owner','status','winsStatus','createdAt','updatedAt'];
   const lines = [headers.join(',')];
-
   docs.forEach(d => {
-    const row = [
-      d.controlNumber,
-      d.title,
-      d.notes || '',
-      d.owner || '',
-      d.status || '',
-      d.winsStatus || '',
-      formatDate(d.createdAt),   // format here
-      formatDate(d.updatedAt)    // format here
-    ];
+    const row = [d.controlNumber, d.title, d.notes || '', d.owner || '', d.status || '', d.winsStatus || '', d.createdAt || '', d.updatedAt || ''];
     lines.push(row.map(csvEscape).join(','));
   });
-
   const csv = lines.join('\n');
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
@@ -732,9 +707,6 @@ function exportToCSV() {
   a.remove();
   URL.revokeObjectURL(url);
 }
-
-
-
 
 
 function downloadTemplate(){
