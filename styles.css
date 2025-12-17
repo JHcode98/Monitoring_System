@@ -16,7 +16,10 @@ header h1{margin:0;font-size:18px}
 main{max-width:90%;margin:18px auto;padding:0 16px}
 .card{background:var(--card);padding:14px;border-radius:8px;box-shadow:0 1px 3px rgba(20,30,60,0.06);margin-bottom:12px}
 form{
-   color: #fff;
+  
+
+    display:flex;
+    color: #fff;
     border: none;
     outline: none;
     padding: 14px 0;
